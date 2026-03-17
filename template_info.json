@@ -1,0 +1,15 @@
+{
+    "t": "Project Title Here",
+    "type": "Project Type (e.g. Data Analysis)",
+    "cat": "sql", 
+    "tags": ["Tag1", "Tag2"],
+    "desc": "Detailed description of your project goes here. Explain what you built and how you built it."
+}
+
+/* 
+Valid Categories (cat): 
+- sql
+- python
+- tableau
+- ml
+*/

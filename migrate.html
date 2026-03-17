@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Supabase Migration Tool</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f4f4f9;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .status {
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+
+        .ready {
+            background: #e7f3ff;
+            color: #0066cc;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .success {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>🚀 Supabase Migration</h1>
+        <p>This tool will read your local <code>assets/</code> folders and upload all categories and projects to your
+            Supabase database.</p>
+
+        <div id="setup-check" class="status ready">
+            Checking configuration...
+        </div>
+
+        <div id="data-preview" style="display:none;">
+            <h3>Data Found:</h3>
+            <ul>
+                <li>Categories: <span id="cat-count">0</span></li>
+                <li>Projects: <span id="proj-count">0</span></li>
+            </ul>
+            <button id="migrate-btn">Start Migration</button>
+        </div>
+
+        <div id="log" style="display:none; margin-top: 2rem;">
+            <h3>Progress:</h3>
+            <pre id="log-content"></pre>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/data.js"></script>
+    <script src="js/loader.js"></script>
+
+    <script>
+        const btn = document.getElementById('migrate-btn');
+        const log = document.getElementById('log');
+        const content = document.getElementById('log-content');
+        const status = document.getElementById('setup-check');
+
+        function addLog(msg) {
+            content.innerText += msg + '\n';
+            log.style.display = 'block';
+        }
+
+        // 1. Initial Check
+        if (SUPABASE_CONFIG.URL === 'YOUR_SUPABASE_URL' || SUPABASE_CONFIG.ANON_KEY === 'YOUR_SUPABASE_ANON_KEY') {
+            status.className = 'status error';
+            status.innerText = '⚠️ Please set your Supabase URL and Anon Key in js/config.js first.';
+        } else {
+            status.innerText = '✅ Supabase configured. Waiting for data discovery...';
+        }
+
+        // 2. Wait for Loader to discover local data
+        document.addEventListener('projectsLoaded', () => {
+            if (typeof USE_SUPABASE !== 'undefined' && USE_SUPABASE) {
+                status.className = 'status error';
+                status.innerText = '⚠️ USE_SUPABASE is set to true. Set it to false in js/config.js to allow local discovery before migration.';
+                return;
+            }
+
+            const cats = window.projectData.categories;
+            const projs = Object.values(window.projectData.projects);
+
+            if (cats.length > 0) {
+                status.className = 'status success';
+                status.innerText = '✅ Ready to migrate local data.';
+                document.getElementById('data-preview').style.display = 'block';
+                document.getElementById('cat-count').innerText = cats.length;
+                document.getElementById('proj-count').innerText = projs.length;
+            } else {
+                status.className = 'status error';
+                status.innerText = '❌ No local data found. Make sure python -m http.server is running.';
+            }
+        });
+
+        // 3. Migration Logic
+        btn.addEventListener('click', async () => {
+            btn.disabled = true;
+            addLog('Connecting to Supabase...');
+
+            try {
+                const sb = supabase.createClient(SUPABASE_CONFIG.URL, SUPABASE_CONFIG.ANON_KEY);
+
+                // Migrate Categories
+                addLog('Migrating Categories...');
+                const cats = window.projectData.categories;
+                for (const cat of cats) {
+                    const { error } = await sb.from('categories').upsert({
+                        id: cat.id,
+                        n: cat.n,
+                        t: cat.t,
+                        summary: cat.summary,
+                        icon: cat.icon
+                    });
+                    if (error) throw error;
+                    addLog(`  ✅ Category: ${cat.id}`);
+                }
+
+                // Migrate Projects
+                addLog('Migrating Projects...');
+                const projs = Object.values(window.projectData.projects);
+                for (const p of projs) {
+                    const { error } = await sb.from('projects').upsert({
+                        id: p.id,
+                        cat: p.cat,
+                        t: p.t,
+                        d: p.type ? `[${p.type}] ${p.desc || p.d}` : (p.desc || p.d),
+                        tags: p.tags,
+                        img: p.img,
+                        live: p.live,
+                        git: p.git,
+                        raw_files: p.raw_files || ''
+                    });
+                    if (error) throw error;
+                    addLog(`  ✅ Project: ${p.id}`);
+                }
+
+                addLog('Done! Migration successful.');
+                status.innerText = '✨ Migration Complete! You can now set USE_SUPABASE = true in js/config.js';
+
+            } catch (e) {
+                addLog(`❌ Error: ${e.message}`);
+                console.error(e);
+            }
+        });
+    </script>
+</body>
+
+</html>

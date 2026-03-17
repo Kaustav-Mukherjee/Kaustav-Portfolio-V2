@@ -1,0 +1,7 @@
+{
+    "t": "SQL Sales Dashboard",
+    "type": "Data Analysis",
+    "cat": "sql",
+    "tags": ["SQL", "Tableau", "Excel"],
+    "desc": "A comprehensive sales analytics dashboard built to track KPIs across multiple regions. Leveraged SQL for data extraction and Tableau for high-impact visual storytelling."
+}

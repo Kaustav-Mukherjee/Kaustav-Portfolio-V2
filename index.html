@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Kaustav Mukherjee</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- Split CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="">
+    <!-- Custom Cursor -->
+    <div class="cur-d" id="cd"></div>
+    <div class="cur-r" id="cr"></div>
+    <div class="giggly-cursor" id="gigglyCursor"></div>
+
+    <nav id="nav">
+        <a href="index.html" class="n-logo" style="text-decoration: none;"><span class="lt">&lt;</span> <span class="km-text">KM</span> <span class="slash">/</span><span class="gt">&gt;</span></a>
+        <ul class="n-links" id="nLinks">
+            <li><a href="#what">Work</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#stack">Stack</a></li>
+            <li><a href="#edu">Education</a></li>
+            <li><a href="#connect">Connect</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="tgl-wrap">
+                <div class="tgl" onclick="toggleTheme()" role="button" tabindex="0"></div>
+            </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="menu-tgl" id="menuTgl" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="h-top">
+            <div class="h-status"><span class="s-dot"></span>Available for opportunities · 2026 · <span
+                    id="clock"></span></div>
+            <div class="h-loc">📍 Kolkata, India</div>
+        </div>
+        <div class="h-bottom">
+            <h1 class="h-name" id="hero-name">Kaustav<br><em>Mukherjee.</em></h1>
+            <div class="h-aside">
+                <p class="h-desc">Aspiring Data analyst &amp; technologist. I turn messy data into clear decisions and
+                    ideas into things that ship.</p>
+                <div class="h-btns">
+                    <a class="btn-p" href="Resume/KAUSTAV MUKHERJEE_RESUME.pdf" target="_blank">Resume <span class="btn-rip"></span><span class="arrow-45">↗</span></a>
+                    <a class="btn-box" href="#connect">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="xdiv"></div>
+
+    <!-- CAPABILITIES -->
+    <div class="s" id="what">
+        <div class="s-inner">
+            <div class="eyebrow rev">01 — Capabilities</div>
+            <h2 class="stitle rev">What I bring<br>to the table</h2>
+            <div class="srv-grid rev">
+                <div class="srv" data-cursor-svg="db">
+                    <div class="srv-n">01</div>
+                    <div class="srv-t">Data Collecting</div>
+                    <div class="srv-d">I Collect & Extract big data from APIs , Datawarehouse , Website (Web Scraping)
+                    </div>
+                    <div class="srv-a">→</div>
+                </div>
+                <div class="srv" data-cursor-svg="clean">
+                    <div class="srv-n">02</div>
+                    <div class="srv-t">Data Cleaning</div>
+                    <div class="srv-d">I remove or fix duplicated , inaccurate, irrelevant data and missing data points
+                        to ensure data quality</div>
+                    <div class="srv-a">→</div>
+                </div>
+                <div class="srv" data-cursor-svg="grid">
+                    <div class="srv-n">03</div>
+                    <div class="srv-t">Data Manipulation</div>
+                    <div class="srv-d">I organize , aggregate , process raw data
+                        using logic and calculations to answer certain business questions</div>
+                    <div class="srv-a">→</div>
+                </div>
+                <div class="srv" data-cursor-svg="search">
+                    <div class="srv-n">04</div>
+                    <div class="srv-t">Data Analysis</div>
+                    <div class="srv-d">SQL, Python, Pandas. Turning messy datasets into precise, actionable insights
+                        that actually influence decisions.</div>
+                    <div class="srv-a">→</div>
+                </div>
+                <div class="srv" data-cursor-svg="chart">
+                    <div class="srv-n">05</div>
+                    <div class="srv-t">Dashboards Visualization</div>
+                    <div class="srv-d">I create interactive dashboards with Tableau, Power BI. Data that communicates
+                    </div>
+                    <div class="srv-a">→</div>
+                </div>
+                <div class="srv" data-cursor-svg="code">
+                    <div class="srv-n">06</div>
+                    <div class="srv-t">Python Scripting</div>
+                    <div class="srv-d">My skills in python don’t stop on data, I can write any script in python.</div>
+                    <div class="srv-a">→</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="xdiv"></div>
+
+    <!-- PROJECTS -->
+    <div class="s" id="projects">
+        <div class="s-inner">
+            <div class="eyebrow rev">02 — Selected Work</div>
+            <h2 class="stitle rev">Projects that<br>shipped</h2>
+            <div class="folder-row rev" id="folderRow"></div>
+        </div>
+    </div>
+
+    <div class="xdiv"></div>
+
+    <!-- TECH STACK -->
+    <div class="stack-s" id="stack">
+        <div class="stack-inner">
+            <div class="eyebrow rev">03 — Tech Stack</div>
+            <h2 class="stitle rev" style="margin-bottom:0;">Tools I work<br>with daily</h2>
+        </div>
+        <div class="stack-tickers rev">
+            <div class="tk-col">
+                <div class="tk-track-v" id="tkCol1"></div>
+            </div>
+            <div class="tk-col">
+                <div class="tk-track-v tk-rev" id="tkCol2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="xdiv"></div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="s" id="certifications">
+        <div class="s-inner">
+            <div class="eyebrow rev">04 — Growth</div>
+            <h2 class="stitle rev" style="margin-bottom: 2.5rem;">Certificates &amp;<br>learning</h2>
+            <div class="cert-list" id="certList" style="border-top: 1px solid var(--line2);"></div>
+        </div>
+    </div>
+
+    <div class="xdiv"></div>
+
+    <!-- EDUCATION -->
+    <div class="s" id="edu">
+        <div class="s-inner">
+            <div class="eyebrow rev">05 — Background</div>
+            <h2 class="stitle rev">Education &amp;<br>timeline</h2>
+            <div class="edu-grid" id="egrid"></div>
+        </div>
+    </div>
+
+    <div class="xdiv"></div>
+
+    <!-- CONNECT -->
+    <div class="s" id="connect">
+        <div class="s-inner">
+            <div class="eyebrow rev">06 — Contact</div>
+            <div class="con-grid">
+                <div class="rev">
+                    <p class="con-big">Let's<br><em>talk.</em></p>
+                    <p class="con-sub">Made with Framer, Antigravity, bandaging broken APIs & scrambling free tokens.
+                    </p>
+                    <a class="btn-p" href="mailto:kaustavmukherjee2023@gmail.com">Send a message <span class="arrow-45">↗</span></a>
+                </div>
+                <div class="rev">
+                    <div class="soc-list" id="soclist"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="xdiv"></div>
+
+    <footer>
+        <div class="f-l rev" id="fCopy">© 2026 <span>Kaustav Mukherjee™</span></div>
+        <div class="f-center">
+            <a href="https://kaustavmukherjee.framer.website/" target="_blank" class="f-prev">Visit Previous Portfolio</a>
+        </div>
+        <div class="f-r">
+            <button class="f-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</button>
+        </div>
+    </footer>
+
+    <!-- Split Javascript -->
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/data.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

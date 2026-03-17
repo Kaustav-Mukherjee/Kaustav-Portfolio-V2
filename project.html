@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Project Details | Kaustav Mukherjee</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .p-hero { padding: 8rem var(--pad) 4rem; max-width: 1400px; margin: 0 auto; }
+        .p-back { font-family: var(--mono); font-size: 0.7rem; color: var(--brand); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: transform 0.2s; }
+        .p-back:hover { transform: translateX(-4px); }
+        .p-title { font-family: var(--serif); font-size: clamp(3rem, 6vw, 5rem); line-height: 1; margin-bottom: 2rem; }
+        .p-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; border-top: 1px solid var(--line2); padding-top: 2rem; margin-top: 4rem; }
+        .p-meta-label { font-family: var(--mono); font-size: 0.6rem; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem; }
+        .p-meta-val { font-size: 0.9rem; color: var(--ink); }
+        .p-img-wrap { margin: 4rem 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line2); background: var(--bg2); }
+        .p-img { width: 100%; height: auto; display: block; aspect-ratio: 16/9; object-fit: cover; }
+        .p-content { max-width: 800px; margin: 0 auto; padding: 0 var(--pad); }
+        .p-desc { font-size: 1.1rem; line-height: 1.6; color: var(--ink2); margin-bottom: 2rem; }
+        .p-tags-list { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1rem; }
+        .p-tag-item { padding: 6px 14px; background: var(--bg3); border-radius: 4px; font-size: 0.75rem; color: var(--ink2); }
+    </style>
+</head>
+<body class="">
+    <!-- Custom Cursor -->
+    <div class="cur-d" id="cd"></div>
+    <div class="cur-r" id="cr"></div>
+
+    <nav id="nav">
+        <a href="index.html" class="n-logo" style="text-decoration: none;">KM</a>
+        <ul class="n-links" id="nLinks">
+            <li><a href="index.html#what">Work</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#stack">Stack</a></li>
+            <li><a href="index.html#edu">Education</a></li>
+            <li><a href="index.html#connect">Connect</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="tgl-wrap">
+                <div class="tgl" onclick="toggleTheme()" role="button" tabindex="0"></div>
+            </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="menu-tgl" id="menuTgl" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="p-hero">
+        <a href="index.html" class="p-back">← Back</a>
+        <h1 id="pTitle" class="p-title">Project Title</h1>
+        
+        <div class="p-img-wrap">
+            <img id="pImg" src="https://via.placeholder.com/1200x675" alt="Project Preview" class="p-img">
+        </div>
+
+        <div class="p-meta-grid">
+            <div>
+                <span class="p-meta-label">Category</span>
+                <span id="pType" class="p-meta-val">Data Analysis</span>
+            </div>
+            <div>
+                <span class="p-meta-label">Tools Used</span>
+                <div id="pTags" class="p-tags-list"></div>
+            </div>
+            <div>
+                <span class="p-meta-label">Status</span>
+                <span class="p-meta-val">Completed</span>
+            </div>
+        </div>
+
+        <div class="p-content" style="margin-top: 6rem;">
+            <span class="p-meta-label">Description</span>
+            <p id="pDesc" class="p-desc">Deep dive into the project details, the challenges faced, and the results achieved. This section provides a comprehensive overview of the work done.</p>
+            
+            <div id="pRawWrap" style="display: none; margin-top: 3rem;">
+                <span class="p-meta-label">Project Assets</span>
+                <a id="pRawLink" href="#" target="_blank" class="h-btn-outline wireframe-btn" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; padding: 0.8rem 1.5rem; border: 1px solid var(--ink); border-radius: 8px; color: var(--ink); font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.05em;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    View Raw Files
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="f-l rev" id="fCopy">© 2026 <span>Kaustav Mukherjee™</span></div>
+        <div class="f-center">
+            <a href="https://kaustavmukherjee.framer.website/" target="_blank" class="f-prev">Visit Previous Portfolio</a>
+        </div>
+        <div class="f-r">
+            <button class="f-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</button>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/data.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('projectsLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            const project = window.projectData.projects[id] || Object.values(window.projectData.projects)[0];
+            
+            if (!project) return;
+
+            document.getElementById('pTitle').textContent = project.t;
+            document.getElementById('pType').textContent = project.type || project.cat;
+            document.getElementById('pDesc').textContent = project.desc || project.d;
+            document.getElementById('pImg').src = project.img;
+            
+            const tagsBox = document.getElementById('pTags');
+            tagsBox.innerHTML = '';
+            project.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'p-tag-item';
+                span.textContent = tag;
+                tagsBox.appendChild(span);
+            });
+
+            // Handle Raw Files Link
+            const rawWrap = document.getElementById('pRawWrap');
+            const rawLink = document.getElementById('pRawLink');
+            if (project.raw_files && project.raw_files.trim() !== '') {
+                rawLink.href = project.raw_files;
+                rawWrap.style.display = 'block';
+            } else {
+                rawWrap.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
