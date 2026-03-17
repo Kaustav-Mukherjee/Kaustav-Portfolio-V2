@@ -121,18 +121,44 @@ nav.stuck{border-color:var(--line2);background:rgba(245,241,232,.75);backdrop-fi
 [data-theme="dark"] nav.stuck{background:rgba(30,28,26,.75);}
 .n-logo{
   justify-self:start;
-  font-family:var(--mono);font-size:.9rem;font-weight:500;color:var(--ink);
-  letter-spacing:.06em;padding:0 5px;
-  cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1);z-index: 201;
-  white-space:nowrap;
-  display:flex;
-  align-items:center;
+  cursor:pointer; transition:all .3s cubic-bezier(.16,1,.3,1); z-index: 201;
+  display:flex; align-items:center;
 }
-.n-logo .lt, .n-logo .slash, .n-logo .gt{color:var(--brand);}
-.n-logo .km-text{color:var(--ink);transition:color .3s cubic-bezier(.16,1,.3,1);}
-.dull{opacity:0.4;}
-.n-logo:hover .km-text{color:var(--brand);}
-.n-logo:hover{transform:scale(1.05);}
+.logo-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(.175, .885, .32, 1.275);
+    border: 1px solid transparent;
+}
+.logo-circle svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s cubic-bezier(.16,1,.3,1);
+}
+
+/* Light/Dark Reversal per user request: White Circle/Black Hat in Light, Black Circle/White Hat in Dark */
+[data-theme="light"] .logo-circle {
+    background: #FFFFFF;
+    color: #000000;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
+}
+[data-theme="dark"] .logo-circle {
+    background: #000000;
+    color: #FFFFFF;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+.n-logo:hover .logo-circle {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+.n-logo:hover svg {
+    transform: rotate(-10deg);
+}
 .n-links{display:flex;gap:2rem;list-style:none;}
 .n-links a{font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);text-decoration:none;transition:color .3s cubic-bezier(.16,1,.3,1);position:relative;padding-bottom:4px;}
 .n-links a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:1px;background:var(--brand);transition:all .3s cubic-bezier(.16,1,.3,1);transform:translateX(-50%);}
