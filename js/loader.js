@@ -43,7 +43,10 @@
     async function fetchFromSupabase() {
         try {
             const { createClient } = supabase;
-            const sb = createClient(SUPABASE_CONFIG.URL, SUPABASE_CONFIG.ANON_KEY);
+            if (!window.supabaseClient) {
+                window.supabaseClient = createClient(SUPABASE_CONFIG.URL, SUPABASE_CONFIG.ANON_KEY);
+            }
+            const sb = window.supabaseClient;
 
             // Fetch Categories
             const { data: cats, error: catError } = await sb.from('categories').select('*');

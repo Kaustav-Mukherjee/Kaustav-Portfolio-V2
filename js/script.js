@@ -376,12 +376,15 @@ async function buildCertifications() {
 
     let data = [];
     if (typeof USE_SUPABASE !== 'undefined' && USE_SUPABASE) { // Check if USE_SUPABASE is defined
-        const { data: certs, error } = await supabase
-            .from('certifications')
-            .select('*')
-            .eq('is_visible', true)
-            .order('sort_order', { ascending: true });
-        if (!error) data = certs;
+        const sb = window.supabaseClient;
+        if (sb) {
+            const { data: certs, error } = await sb
+                .from('certifications')
+                .select('*')
+                .eq('is_visible', true)
+                .order('sort_order', { ascending: true });
+            if (!error) data = certs;
+        }
     } else if (window.projectData && window.projectData.certifications) {
         data = window.projectData.certifications;
     }
@@ -469,10 +472,6 @@ if (fCopy) {
     }, { threshold: 0.5 });
     footerObserver.observe(fCopy);
 }
-
-// Initial build
-buildTechStack();
-buildCertifications();
 
 // Fix race condition: check if already loaded, otherwise listen
 function finalInit() {
