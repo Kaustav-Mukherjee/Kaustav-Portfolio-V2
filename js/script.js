@@ -329,6 +329,24 @@ function buildFolders() {
 }
 
 /* ── HELPERS ── */
+async function forceDownload(url, filename) {
+    try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+        console.error('Download failed:', err);
+        window.open(url, '_blank');
+    }
+}
+
 function getStorageUrl(path) {
     if (!path) return '';
     if (path.startsWith('http')) return path;
@@ -336,42 +354,55 @@ function getStorageUrl(path) {
     // Normalize path: remove leading slash
     const cleanPath = path.startsWith('/') ? path.slice(1) : path;
     
-    // Split segments and encode each one (e.g. 'resumes/KAUSTAV MUKHERJEE_RESUME.pdf' -> 'resumes/KAUSTAV%20MUKHERJEE_RESUME.pdf')
+    // Split segments and encode each one
     const encodedSegments = cleanPath.split('/').map(seg => encodeURIComponent(seg));
     const finalPath = encodedSegments.join('/');
     
     const baseUrl = SUPABASE_CONFIG.URL;
     const finalUrl = `${baseUrl}/storage/v1/object/public/${finalPath}`;
     
-    console.log('Supabase storage URL:', finalUrl);
+    // Log to console for user debugging
+    console.log('--- Supabase Path Debug ---');
+    console.log('Original Path:', path);
+    console.log('Final URL:', finalUrl);
+    
     return finalUrl;
 }
 
 /* ── CERTIFICATIONS ── */
-function buildCertifications() {
-    const cl = document.getElementById('certList');
-    if (!cl || !window.projectData || !window.projectData.certifications) return;
+async function buildCertifications() {
+    const cl = document.getElementById('certList'); // Keep original ID for consistency
+    if (!cl) return;
+
+    let data = [];
+    if (typeof USE_SUPABASE !== 'undefined' && USE_SUPABASE) { // Check if USE_SUPABASE is defined
+        const { data: certs, error } = await supabase
+            .from('certifications')
+            .select('*')
+            .eq('is_visible', true)
+            .order('sort_order', { ascending: true });
+        if (!error) data = certs;
+    } else if (window.projectData && window.projectData.certifications) {
+        data = window.projectData.certifications;
+    }
 
     cl.innerHTML = ''; // Clear existing
-
-    window.projectData.certifications.forEach((c) => {
-        const a = document.createElement('a');
-        a.className = 'cert-row rev';
+    data.forEach((c) => {
+        const row = document.createElement('div');
+        row.className = 'cert-row rev';
         
-        // Use helper for URLs
+        // Use getStorageUrl for both the hover image and the actual certificate link
         const certImg = getStorageUrl(c.certificate_image_url);
         const verifyLink = getStorageUrl(c.verify_url);
         const hoverImg = getStorageUrl(c.img || c.certificate_image_url);
 
-        a.href = verifyLink || certImg || '#';
-        a.target = '_blank';
-
-        // Build verify badge HTML if verify_url exists
-        const verifyBadge = c.verify_url
-            ? `<a class="cert-verify-badge" href="${verifyLink}" target="_blank" onclick="event.stopPropagation();">Verify <span class="arrow-45">↗</span></a>`
+        // Build verify badge HTML if verify_url or certificate_image_url exists
+        const mainLink = verifyLink || certImg || '#';
+        const verifyBadge = (c.verify_url || c.certificate_image_url)
+            ? `<a class="cert-verify-badge" href="${mainLink}" target="_blank">Verify <span class="arrow-45">↗</span></a>`
             : '';
 
-        a.innerHTML = `
+        row.innerHTML = `
             <div class="cert-left">
                 <span class="cert-type">${c.type}</span>
                 <span class="cert-title">${c.name}</span>
@@ -382,14 +413,14 @@ function buildCertifications() {
             </div>
             ${hoverImg ? `<img class="cert-img-hover" src="${hoverImg}" alt="${c.name} Certificate" onerror="this.style.display='none'">` : ''}
         `;
-        cl.appendChild(a);
-        obs.observe(a);
+        cl.appendChild(row);
+        obs.observe(row);
 
         // Add text scrambling animation only to date on hover
-        const dateEl = a.querySelector('.cert-date');
+        const dateEl = row.querySelector('.cert-date');
         const fxDate = new TextScramble(dateEl);
 
-        a.addEventListener('mouseenter', () => {
+        row.addEventListener('mouseenter', () => {
             fxDate.setText(dateEl.dataset.original);
         });
     });
