@@ -51,4 +51,5 @@ CREATE POLICY "Allow public read visible certifications" ON certifications FOR S
 INSERT INTO certifications (name, type, date, img, sort_order) VALUES
     ('Google Data Analytics', 'Professional Certificate', 'OCT 12, 2023', 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop', 1),
     ('Advanced SQL in PostgreSQL', 'Coursera Program', 'NOV 05, 2023', 'https://images.unsplash.com/photo-1542626991-cbc4e32524cc?q=80&w=600&auto=format&fit=crop', 2),
-    ('Data Visualization with Tableau', 'Specialization', 'JAN 18, 2024', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop', 3);
+    ('Data Visualization with Tableau', 'Specialization', 'JAN 18, 2024', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop', 3),
+    ('Professional Certification', 'Portfolio Update', 'MAR 18, 2026', 'certificates/nolla-gPfPo7Q9Oa4-unsplash.jpg', 4);

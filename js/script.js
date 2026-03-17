@@ -227,6 +227,25 @@ class TextScramble {
     }
 }
 
+/* Site Loader */
+const siteLoader = document.getElementById('siteLoader');
+const loaderText = document.getElementById('loaderText');
+
+if (siteLoader && loaderText) {
+    // Stop scrolling during loader
+    document.body.style.overflow = 'hidden';
+    const fx = new TextScramble(loaderText);
+    
+    setTimeout(() => {
+        fx.setText('Kaustav Mukherjee').then(() => {
+            setTimeout(() => {
+                siteLoader.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 800);
+        });
+    }, 200);
+}
+
 const logo = document.querySelector('.n-logo');
 const kmText = logo ? logo.querySelector('.km-text') : null;
 if (logo && kmText) {
@@ -309,6 +328,25 @@ function buildFolders() {
     initCursorEffect(); // Re-bind cursor for new folders
 }
 
+/* ── HELPERS ── */
+function getStorageUrl(path) {
+    if (!path) return '';
+    if (path.startsWith('http')) return path;
+    
+    // Normalize path: remove leading slash
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    
+    // Split segments and encode each one (e.g. 'resumes/KAUSTAV MUKHERJEE_RESUME.pdf' -> 'resumes/KAUSTAV%20MUKHERJEE_RESUME.pdf')
+    const encodedSegments = cleanPath.split('/').map(seg => encodeURIComponent(seg));
+    const finalPath = encodedSegments.join('/');
+    
+    const baseUrl = SUPABASE_CONFIG.URL;
+    const finalUrl = `${baseUrl}/storage/v1/object/public/${finalPath}`;
+    
+    console.log('Supabase storage URL:', finalUrl);
+    return finalUrl;
+}
+
 /* ── CERTIFICATIONS ── */
 function buildCertifications() {
     const cl = document.getElementById('certList');
@@ -319,17 +357,19 @@ function buildCertifications() {
     window.projectData.certifications.forEach((c) => {
         const a = document.createElement('a');
         a.className = 'cert-row rev';
-        // Link to certificate image or verification URL, fallback to hover image
-        a.href = c.certificate_image_url || c.verify_url || c.img || '#';
+        
+        // Use helper for URLs
+        const certImg = getStorageUrl(c.certificate_image_url);
+        const verifyLink = getStorageUrl(c.verify_url);
+        const hoverImg = getStorageUrl(c.img || c.certificate_image_url);
+
+        a.href = verifyLink || certImg || '#';
         a.target = '_blank';
 
         // Build verify badge HTML if verify_url exists
         const verifyBadge = c.verify_url
-            ? `<a class="cert-verify-badge" href="${c.verify_url}" target="_blank" onclick="event.stopPropagation();">Verify <span class="arrow-45">↗</span></a>`
+            ? `<a class="cert-verify-badge" href="${verifyLink}" target="_blank" onclick="event.stopPropagation();">Verify <span class="arrow-45">↗</span></a>`
             : '';
-
-        // Use img for hover, fallback to certificate_image_url
-        const hoverImg = c.img || c.certificate_image_url || '';
 
         a.innerHTML = `
             <div class="cert-left">
@@ -340,7 +380,7 @@ function buildCertifications() {
                 ${verifyBadge}
                 <span class="cert-date" data-original="${c.date}">${c.date}</span>
             </div>
-            ${hoverImg ? `<img class="cert-img-hover" src="${hoverImg}" alt="${c.name} Certificate">` : ''}
+            ${hoverImg ? `<img class="cert-img-hover" src="${hoverImg}" alt="${c.name} Certificate" onerror="this.style.display='none'">` : ''}
         `;
         cl.appendChild(a);
         obs.observe(a);

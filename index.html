@@ -15,13 +15,18 @@
 </head>
 
 <body class="">
+    <!-- Preloader -->
+    <div class="site-loader" id="siteLoader">
+        <div class="loader-text" id="loaderText"></div>
+    </div>
     <!-- Custom Cursor -->
     <div class="cur-d" id="cd"></div>
     <div class="cur-r" id="cr"></div>
     <div class="giggly-cursor" id="gigglyCursor"></div>
 
     <nav id="nav">
-        <a href="index.html" class="n-logo" style="text-decoration: none;"><span class="lt">&lt;</span> <span class="km-text">KM</span> <span class="slash">/</span><span class="gt">&gt;</span></a>
+        <a href="index.html" class="n-logo" style="text-decoration: none;"><span class="lt">&lt;</span> <span
+                class="km-text">KM</span> <span class="slash">/</span><span class="gt">&gt;</span></a>
         <ul class="n-links" id="nLinks">
             <li><a href="#what">Work</a></li>
             <li><a href="#projects">Projects</a></li>
@@ -31,7 +36,10 @@
         </ul>
         <div class="nav-right">
             <div class="tgl-wrap">
-                <div class="tgl" onclick="toggleTheme()" role="button" tabindex="0"></div>
+                <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
             </div>
             <!-- Mobile Menu Toggle -->
             <button class="menu-tgl" id="menuTgl" aria-label="Toggle Menu">
@@ -55,7 +63,8 @@
                 <p class="h-desc">Aspiring Data analyst &amp; technologist. I turn messy data into clear decisions and
                     ideas into things that ship.</p>
                 <div class="h-btns">
-                    <a class="btn-p" href="Resume/KAUSTAV MUKHERJEE_RESUME.pdf" target="_blank">Resume <span class="btn-rip"></span><span class="arrow-45">↗</span></a>
+                    <a class="btn-p" href="https://hfygexttyismlysvwfvy.supabase.co/storage/v1/object/public/resumes/KAUSTAV%20MUKHERJEE_RESUME.pdf" download="Kaustav_Mukherjee_Resume.pdf">Resume <span
+                             class="btn-rip"></span><span class="arrow-v">↓</span></a>
                     <a class="btn-box" href="#connect">Get in Touch</a>
                 </div>
             </div>
@@ -129,17 +138,24 @@
     <div class="xdiv"></div>
 
     <!-- TECH STACK -->
-    <div class="stack-s" id="stack">
-        <div class="stack-inner">
+    <div class="s" id="stack">
+        <div class="s-inner">
             <div class="eyebrow rev">03 — Tech Stack</div>
-            <h2 class="stitle rev" style="margin-bottom:0;">Tools I work<br>with daily</h2>
-        </div>
-        <div class="stack-tickers rev">
-            <div class="tk-col">
-                <div class="tk-track-v" id="tkCol1"></div>
-            </div>
-            <div class="tk-col">
-                <div class="tk-track-v tk-rev" id="tkCol2"></div>
+            <div class="stack-grid">
+                <div class="stack-text">
+                    <h2 class="stitle rev" style="margin-bottom:1.5rem;">Tools I work<br>with daily</h2>
+                    <p class="h-desc rev" style="max-width: 380px; margin-bottom: 0;">A look at my core toolkit. I
+                        leverage these technologies daily to build data pipelines, analyze complex datasets, and develop
+                        scalable applications.</p>
+                </div>
+                <div class="stack-tickers rev">
+                    <div class="tk-col">
+                        <div class="tk-track-v" id="tkCol1"></div>
+                    </div>
+                    <div class="tk-col">
+                        <div class="tk-track-v tk-rev" id="tkCol2"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -177,7 +193,8 @@
                     <p class="con-big">Let's<br><em>talk.</em></p>
                     <p class="con-sub">Made with Framer, Antigravity, bandaging broken APIs & scrambling free tokens.
                     </p>
-                    <a class="btn-p" href="mailto:kaustavmukherjee2023@gmail.com">Send a message <span class="arrow-45">↗</span></a>
+                    <a class="btn-p" href="mailto:kaustavmukherjee2023@gmail.com">Send a message <span
+                            class="arrow-45">↗</span></a>
                 </div>
                 <div class="rev">
                     <div class="soc-list" id="soclist"></div>
@@ -189,9 +206,10 @@
     <div class="xdiv"></div>
 
     <footer>
-        <div class="f-l rev" id="fCopy">© 2026 <span>Kaustav Mukherjee™</span></div>
+        <div class="f-l rev" id="fCopy">© 2026 <span>Kaustav.Portfolio_V2.0</span></div>
         <div class="f-center">
-            <a href="https://kaustavmukherjee.framer.website/" target="_blank" class="f-prev">Visit Previous Portfolio</a>
+            <a href="https://kaustavmukherjee.framer.website/" target="_blank" class="f-prev">Navigate to Portfolio
+                V1.0</a>
         </div>
         <div class="f-r">
             <button class="f-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</button>
