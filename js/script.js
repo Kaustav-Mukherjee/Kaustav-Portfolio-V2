@@ -254,14 +254,15 @@ if (siteLoader && loaderText) {
     document.body.style.overflow = 'hidden';
     const fx = new TextScramble(loaderText);
     
+    // Faster preloader sequence
     setTimeout(() => {
         fx.setText('Kaustav Mukherjee').then(() => {
             setTimeout(() => {
                 siteLoader.classList.add('hidden');
                 document.body.style.overflow = '';
-            }, 800);
+            }, 300); // Reduced from 800ms
         });
-    }, 200);
+    }, 50); // Reduced from 200ms
 }
 
 const logo = document.querySelector('.n-logo');
@@ -304,7 +305,7 @@ function buildTechStack() {
             item.className = 'tk-item-v';
             item.innerHTML = `
                 <div class="tk-icon-box-v">
-                    <img class="tk-img" src="assets/tech/${t.id}.png" alt="${t.n}" onerror="this.src='https://api.iconify.design/lucide:box.svg?color=%234754ff'">
+                    <img class="tk-img" src="assets/tech/${t.id}.png" alt="${t.n}" onerror="this.src='https://api.iconify.design/lucide:box.svg?color=%234754ff'" loading="lazy">
                 </div>
                 <span class="tk-name">${t.n}</span>
             `;
@@ -432,7 +433,7 @@ async function buildCertifications() {
                 ${verifyBadge}
                 <span class="cert-date" data-original="${c.date}">${c.date}</span>
             </div>
-            ${hoverImg ? `<img class="cert-img-hover" src="${hoverImg}" alt="${c.name} Certificate" onerror="this.style.display='none'">` : ''}
+            ${hoverImg ? `<img class="cert-img-hover" src="${hoverImg}" alt="${c.name} Certificate" onerror="this.style.display='none'" loading="lazy">` : ''}
         `;
         cl.appendChild(row);
         obs.observe(row);

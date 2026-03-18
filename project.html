@@ -8,6 +8,12 @@
     <link rel="apple-touch-icon" id="apple-icon" href="assets/img/favicon-light.svg">
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="js/config.js" defer></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/loader.js" defer></script>
+    <script src="js/script.js" defer></script>
     <style>
         .p-hero { padding: 8rem var(--pad) 4rem; max-width: 1400px; margin: 0 auto; }
         .p-back { font-family: var(--mono); font-size: 0.7rem; color: var(--brand); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: transform 0.2s; }
@@ -69,7 +75,7 @@
         <h1 id="pTitle" class="p-title">Project Title</h1>
         
         <div class="p-img-wrap">
-            <img id="pImg" src="https://via.placeholder.com/1200x675" alt="Project Preview" class="p-img">
+            <img id="pImg" src="https://via.placeholder.com/1200x675" alt="Project Preview" class="p-img" loading="lazy">
         </div>
 
         <div class="p-meta-grid">
@@ -117,11 +123,6 @@
         </div>
     </footer>
 
-    <script src="js/config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/data.js"></script>
-    <script src="js/loader.js"></script>
-    <script src="js/script.js"></script>
     <script>
         document.addEventListener('projectsLoaded', () => {
             const params = new URLSearchParams(window.location.search);

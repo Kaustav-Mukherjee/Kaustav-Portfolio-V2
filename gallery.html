@@ -8,6 +8,12 @@
     <link rel="apple-touch-icon" id="apple-icon" href="assets/img/favicon-light.svg">
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="js/config.js" defer></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/loader.js" defer></script>
+    <script src="js/script.js" defer></script>
     <style>
         .g-hero { padding: 10rem var(--pad) 4rem; }
         .g-title { font-family: var(--serif); font-size: clamp(3rem, 6vw, 6rem); line-height: 1; margin-bottom: 4rem; }
@@ -84,11 +90,6 @@
         </div>
     </footer>
 
-    <script src="js/config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/data.js"></script>
-    <script src="js/loader.js"></script>
-    <script src="js/script.js"></script>
     <script>
         document.addEventListener('projectsLoaded', () => {
             const params = new URLSearchParams(window.location.search);
@@ -107,7 +108,7 @@
                         item.href = `project.html?id=${p.id}`;
                         item.innerHTML = `
                             <div class="g-img-wrap">
-                                <img src="${p.img}" alt="${p.t}" class="g-img">
+                                <img src="${p.img}" alt="${p.t}" class="g-img" loading="lazy">
                             </div>
                             <div class="g-meta">
                                 <div>
