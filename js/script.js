@@ -118,10 +118,18 @@ if (heroName && gigglyCursor) {
         }
     });
     
-    // Hide custom cursor when scrolling to prevent it from bleeding into other sections
-    let scrollTimeout;
     window.addEventListener('scroll', () => {
         if (isHovering) {
+            // Check if mouse is still over hero element during scroll
+            const rect = heroName.getBoundingClientRect();
+            if (mx < rect.left || mx > rect.right || my < rect.top || my > rect.bottom) {
+                isHovering = false;
+                gigglyCursor.classList.remove('active');
+                document.body.classList.remove('hero-cursor-active');
+                if (animationId) cancelAnimationFrame(animationId);
+                return;
+            }
+
             // Pause the cursor animation and hide it while scrolling
             gigglyCursor.classList.remove('active');
             document.body.classList.remove('hero-cursor-active');
@@ -139,9 +147,9 @@ if (heroName && gigglyCursor) {
                     document.body.classList.add('hero-cursor-active');
                     animateGiggly();
                 }
-            }, 150);
+            }, 100);
         }
-    });
+    }, { passive: true });
 }
 
 /* theme */
