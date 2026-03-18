@@ -137,12 +137,14 @@
             
             const tagsBox = document.getElementById('pTags');
             tagsBox.innerHTML = '';
-            project.tags.forEach(tag => {
-                const span = document.createElement('span');
-                span.className = 'p-tag-item';
-                span.textContent = tag;
-                tagsBox.appendChild(span);
-            });
+            if (project.tags && Array.isArray(project.tags)) {
+                project.tags.forEach(tag => {
+                    const span = document.createElement('span');
+                    span.className = 'p-tag-item';
+                    span.textContent = tag;
+                    tagsBox.appendChild(span);
+                });
+            }
 
             // Handle Project Links (Raw Files & GitHub)
             const assetsWrap = document.getElementById('pAssetsWrap');
@@ -151,16 +153,18 @@
             
             let hasAssets = false;
 
-            if (project.raw_files && project.raw_files.trim() !== '') {
-                rawLink.href = project.raw_files;
+            const rawUrl = project.raw_files || project.raw_file;
+            if (rawUrl && rawUrl.trim() !== '') {
+                rawLink.href = rawUrl;
                 rawLink.style.display = 'inline-flex';
                 hasAssets = true;
             } else {
                 rawLink.style.display = 'none';
             }
 
-            if (project.github && project.github.trim() !== '') {
-                githubLink.href = project.github;
+            const githubUrl = project.github || project.git;
+            if (githubUrl && githubUrl.trim() !== '') {
+                githubLink.href = githubUrl;
                 githubLink.style.display = 'inline-flex';
                 hasAssets = true;
             } else {
