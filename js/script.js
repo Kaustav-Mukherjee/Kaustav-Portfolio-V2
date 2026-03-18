@@ -145,13 +145,23 @@ if (heroName && gigglyCursor) {
 }
 
 /* theme */
+function updateFavicon(isDark) {
+    const favicon = document.getElementById('favicon');
+    const appleIcon = document.getElementById('apple-icon');
+    const suffix = isDark ? 'dark' : 'light';
+    if (favicon) favicon.href = `assets/img/favicon-${suffix}.svg`;
+    if (appleIcon) appleIcon.href = `assets/img/favicon-${suffix}.svg`;
+}
+
 let dark = localStorage.getItem('theme') === 'dark';
 document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+updateFavicon(dark);
 
 function toggleTheme() {
     dark = !dark;
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     localStorage.setItem('theme', dark ? 'dark' : 'light');
+    updateFavicon(dark);
 }
 
 /* mobile menu toggle */
