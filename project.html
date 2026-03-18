@@ -131,7 +131,7 @@
             if (!project) return;
 
             document.getElementById('pTitle').textContent = project.t;
-            document.getElementById('pType').textContent = project.type || project.cat;
+            document.getElementById('pType').textContent = project.type || project.cat || 'Project';
             document.getElementById('pDesc').textContent = project.desc || project.d;
             document.getElementById('pImg').src = project.img;
             
